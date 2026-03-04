@@ -1,5 +1,8 @@
 # Simple Traffic Light (Arduino UNO + PlatformIO + Wokwi)
 
+<img width="1134" height="782" alt="snip" src="https://github.com/user-attachments/assets/546e8721-4db4-4334-a672-aa2e9e30e8f3" />
+
+
 A simple interrupt-driven traffic light controller built on **Arduino UNO**.
 The system stays in normal traffic mode (green ON), and when the push button is pressed it executes a full stop sequence with amber flashing, red light, and buzzer beeps, then returns to normal operation.
 
