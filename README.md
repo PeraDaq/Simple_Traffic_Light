@@ -297,7 +297,7 @@ Simple_Traffic_Light/
 ├── API.md                   # Complete API reference
 ├── CONTRIBUTING.md          # Contribution guidelines
 ├── CHANGELOG.md             # Version history
-├── LICENSE.md               # MIT License
+├── license.md               # MIT License
 ├── WORKLOG.md               # Development log
 │
 ├── platformio.ini           # PlatformIO configuration
@@ -814,7 +814,7 @@ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions...
 
-[See LICENSE.md for full text]
+[See license.md for full text]
 ```
 
 ---
@@ -1085,6 +1085,6 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history.
 
 [⬆ Back to top](#simple-traffic-light) | [Report Issue](https://github.com/PeraDaq/Simple_Traffic_Light/issues) | [Contribute](CONTRIBUTING.md)
 
-[MIT License](LICENSE.md) © 2026 Mohanad Sharif
+[MIT License](license.md) © 2026 Mohanad Sharif
 
 </div>
