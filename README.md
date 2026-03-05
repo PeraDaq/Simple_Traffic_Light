@@ -144,7 +144,7 @@ pio device monitor -b 9600
 4. **Common Ground**: All components share GND
 5. **Power**: 5V from USB to breadboard power rail
 
-📖 **See [HARDWARE.md](HARDWARE.md) for detailed wiring diagrams and component specifications.**
+📖 **See [HARDWARE.md](docs/HARDWARE.md) for detailed wiring diagrams and component specifications.**
 
 ### First Test
 
@@ -293,15 +293,16 @@ Button ───────┘     │      │     │     │     │
 Simple_Traffic_Light/
 │
 ├── README.md                 # This file - Complete project guide
-├── HARDWARE.md              # Hardware specifications and wiring
-├── API.md                   # Complete API reference
-├── CONTRIBUTING.md          # Contribution guidelines
-├── CHANGELOG.md             # Version history
-├── license.md               # MIT License
-├── WORKLOG.md               # Development log
-│
 ├── platformio.ini           # PlatformIO configuration
 ├── .gitignore              # Git ignore file
+│
+├── docs/
+│   ├── HARDWARE.md          # Hardware specifications and wiring
+│   ├── API.md               # Complete API reference
+│   ├── CONTRIBUTING.md      # Contribution guidelines
+│   ├── CHANGELOG.md         # Version history
+│   ├── license.md           # MIT License
+│   └── WORKLOG.md           # Development log
 │
 ├── src/
 │   └── main.cpp            # Main firmware (PlatformIO)
@@ -317,10 +318,12 @@ Simple_Traffic_Light/
 | File | Purpose | For |
 |------|---------|-----|
 | README.md | Project overview & setup | Everyone |
-| HARDWARE.md | Pin configs, wiring, schematics | Hardware builders |
-| API.md | Function reference, timing specs | Programmers |
-| CONTRIBUTING.md | Development guidelines | Contributors |
-| CHANGELOG.md | Version history, features | Users & maintainers |
+| docs/HARDWARE.md | Pin configs, wiring, schematics | Hardware builders |
+| docs/API.md | Function reference, timing specs | Programmers |
+| docs/CONTRIBUTING.md | Development guidelines | Contributors |
+| docs/CHANGELOG.md | Version history, features | Users & maintainers |
+| docs/license.md | License terms | Everyone |
+| docs/WORKLOG.md | Development log | Maintainers |
 | platformio.ini | Build configuration | PlatformIO users |
 | src/main.cpp | Main firmware code | Arduino developers |
 | Wokwi/* | Simulation files | Simulator users |
@@ -357,7 +360,7 @@ Simple_Traffic_Light/
 - [ ] Button connected to both 5V and GND (via button contact)
 - [ ] Buzzer polarity correct
 
-📖 **For detailed schematic diagrams, see [HARDWARE.md](HARDWARE.md)**
+📖 **For detailed schematic diagrams, see [HARDWARE.md](docs/HARDWARE.md)**
 
 ---
 
@@ -725,10 +728,10 @@ else {
 | Document | Purpose | Read Time |
 |----------|---------|-----------|
 | **README.md** (this file) | Overview, setup, quick start | 10 min |
-| **HARDWARE.md** | Wiring, schematics, components | 15 min |
-| **API.md** | Function reference, timing specs | 20 min |
-| **CONTRIBUTING.md** | Development guidelines | 10 min |
-| **CHANGELOG.md** | Version history, features | 5 min |
+| **docs/HARDWARE.md** | Wiring, schematics, components | 15 min |
+| **docs/API.md** | Function reference, timing specs | 20 min |
+| **docs/CONTRIBUTING.md** | Development guidelines | 10 min |
+| **docs/CHANGELOG.md** | Version history, features | 5 min |
 
 ### Learning Path
 
@@ -740,14 +743,14 @@ else {
 
 **Intermediate** (Want to understand it):
 1. Read all of README.md - 30 min
-2. Read HARDWARE.md for circuit details
+2. Read docs/HARDWARE.md for circuit details
 3. Review code structure in src/main.cpp
-4. Study CHANGELOG.md for design decisions
+4. Study docs/CHANGELOG.md for design decisions
 
 **Advanced** (Want to modify/extend it):
-1. Read API.md for complete function reference
+1. Read docs/API.md for complete function reference
 2. Study interrupt handling and timing
-3. Review CONTRIBUTING.md for code guidelines
+3. Review docs/CONTRIBUTING.md for code guidelines
 4. Plan modifications with state machine diagram
 
 ---
@@ -756,7 +759,7 @@ else {
 
 ### How to Contribute
 
-We welcome contributions! See **[CONTRIBUTING.md](CONTRIBUTING.md)** for:
+We welcome contributions! See **[CONTRIBUTING.md](docs/CONTRIBUTING.md)** for:
 - Development setup
 - Code style guidelines
 - Testing procedures
@@ -908,13 +911,13 @@ pio run                    # Rebuild firmware
 ### General Questions
 
 **Q: Is this suitable for beginners?**  
-A: Yes! It's designed as an educational project. Start with Quick Start section and follow along. See [CONTRIBUTING.md](CONTRIBUTING.md) for learning resources.
+A: Yes! It's designed as an educational project. Start with Quick Start section and follow along. See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for learning resources.
 
 **Q: Can I modify the timing?**  
-A: Absolutely! The code uses `delay()` statements. You can change 3000 to 2000 for a 2-second delay, for example. See [API.md](API.md) for timing details.
+A: Absolutely! The code uses `delay()` statements. You can change 3000 to 2000 for a 2-second delay, for example. See [API.md](docs/API.md) for timing details.
 
 **Q: Does this work on other Arduino boards?**  
-A: Yes! Arduino Nano, Pro Mini, and Mega are compatible. You may need to adjust pin assignments. See [API.md](API.md) compatibility section.
+A: Yes! Arduino Nano, Pro Mini, and Mega are compatible. You may need to adjust pin assignments. See [API.md](docs/API.md) compatibility section.
 
 **Q: Can I add more buttons?**  
 A: Yes! You would need to use INT1 (pin 3) for a second interrupt. See interrupt-driven design patterns in embedded systems references.
@@ -947,7 +950,7 @@ A: This is an educational project. For real traffic lights, you'd need:
 - Additional safety devices
 
 **Q: Can I add pedestrian crossing mode?**  
-A: Yes! This would be a great feature to add. See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+A: Yes! This would be a great feature to add. See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for contribution guidelines.
 
 **Q: Where can I learn more?**  
 A: 
@@ -961,7 +964,7 @@ A:
 
 ### Getting Help
 
-1. **Check Documentation**: README (you are here), HARDWARE.md, API.md
+1. **Check Documentation**: README (you are here), docs/HARDWARE.md, docs/API.md
 2. **Search Issues**: https://github.com/PeraDaq/Simple_Traffic_Light/issues
 3. **Read Troubleshooting**: See Troubleshooting section above
 4. **Open Issue**: Report bug or request feature on GitHub
@@ -1060,14 +1063,14 @@ When requesting a feature:
 |---------|------|--------|-------|
 | 1.0.0 | 2026-03-04 | Stable | Initial release, fully tested |
 
-See [CHANGELOG.md](CHANGELOG.md) for detailed version history.
+See [CHANGELOG.md](docs/CHANGELOG.md) for detailed version history.
 
 ---
 
 ## 📋 Checklist: Before Using This Project
 
 - [ ] Read this entire README
-- [ ] Review [HARDWARE.md](HARDWARE.md) for wiring
+- [ ] Review [HARDWARE.md](docs/HARDWARE.md) for wiring
 - [ ] Gather required components
 - [ ] Install PlatformIO or Arduino IDE
 - [ ] Clone/download the repository
@@ -1083,8 +1086,8 @@ See [CHANGELOG.md](CHANGELOG.md) for detailed version history.
 
 **Built with ❤️ for learning and embedded systems education**
 
-[⬆ Back to top](#simple-traffic-light) | [Report Issue](https://github.com/PeraDaq/Simple_Traffic_Light/issues) | [Contribute](CONTRIBUTING.md)
+[⬆ Back to top](#simple-traffic-light) | [Report Issue](https://github.com/PeraDaq/Simple_Traffic_Light/issues) | [Contribute](docs/CONTRIBUTING.md)
 
-[MIT License](license.md) © 2026 Mohanad Sharif
+[MIT License](docs/license.md) © 2026 Mohanad Sharif
 
 </div>

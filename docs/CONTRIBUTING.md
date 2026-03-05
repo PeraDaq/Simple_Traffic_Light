@@ -53,7 +53,7 @@ If you experience or witness unacceptable behavior, please report it by:
 ### Before You Start
 
 1. **Familiarize Yourself** with the project:
-   - Read [README.md](README.md) for project overview
+   - Read [README.md](../README.md) for project overview
    - Review [API.md](API.md) for technical details
    - Check [HARDWARE.md](HARDWARE.md) for hardware specifications
    - Examine [CHANGELOG.md](CHANGELOG.md) for project history
@@ -796,7 +796,7 @@ Major contributors are recognized in:
 ## 📚 Additional Resources
 
 ### Project Documentation
-- [README.md](README.md) - Project overview
+- [README.md](../README.md) - Project overview
 - [API.md](API.md) - Technical API reference
 - [HARDWARE.md](HARDWARE.md) - Hardware specifications
 - [CHANGELOG.md](CHANGELOG.md) - Version history

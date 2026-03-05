@@ -1152,7 +1152,7 @@ Status: ✅ Fully tested in Wokwi simulator
 
 ## 📚 Related Documentation
 
-- [README.md](README.md) - Project overview and quick start
+- [README.md](../README.md) - Project overview and quick start
 - [HARDWARE.md](HARDWARE.md) - Pin configurations and wiring
 - [CONTRIBUTING.md](CONTRIBUTING.md) - Development guidelines
 - [CHANGELOG.md](CHANGELOG.md) - Version history

@@ -805,9 +805,9 @@ The `Wokwi/diagram.json` includes:
 ## 🔗 Related Documentation
 
 - **[README.md](../README.md)** - Project overview
-- **[API.md](../API.md)** - Software API reference
-- **[CONTRIBUTING.md](../CONTRIBUTING.md)** - Development guidelines
-- **[CHANGELOG.md](../CHANGELOG.md)** - Version history
+- **[API.md](API.md)** - Software API reference
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** - Development guidelines
+- **[CHANGELOG.md](CHANGELOG.md)** - Version history
 
 ---
 
