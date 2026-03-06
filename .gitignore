@@ -9,3 +9,4 @@ test/
 .vscode/ipch
 Wokwi/*.vcd
 docs/GIT_WORKFLOW_NOTES.md
+PLATFORMIO_ESSENTIALS.md
