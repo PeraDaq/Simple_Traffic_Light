@@ -4,3 +4,4 @@
 .vscode/launch.json
 .vscode/ipch
 Wokwi/*.vcd
+docs/GIT_WORKFLOW_NOTES.md

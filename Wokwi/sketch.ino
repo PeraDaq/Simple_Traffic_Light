@@ -96,15 +96,15 @@ void runStopSequence() {
   // Buzzer On
   Serial.println("Buzzer On");
   for (int i = 0; i < 20; i++) {
-    digitalWrite(buzzer, HIGH);
+    tone(buzzer, 2000); // 2000 Hz tone for clear audible output in Wokwi
     delay(100);
-    digitalWrite(buzzer, LOW);
+    noTone(buzzer);
     delay(100);
   }
   
   // Buzzer Off
   Serial.println("Buzzer Off");
-  digitalWrite(buzzer, LOW);
+  noTone(buzzer);
 
   // Flashing Amber light
   Serial.println("Flashing Amber On");
