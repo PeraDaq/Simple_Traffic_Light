@@ -23,3 +23,16 @@
 - Produced a user-facing bullet summary of completed technical work for end-of-day reporting.
 - Established and used root-level `WORKLOG.md` as the project record for date-stamped activity tracking.
 
+## 2026-03-05
+
+- Moved project markdown documentation into `docs/` for cleaner repository structure.
+- Added a comprehensive Wokwi setup guide for simulation onboarding and repeatable local testing.
+- Added workspace scaffolding and fixed documentation links affected by file moves and structure cleanup.
+
+## 2026-03-06
+
+- Updated repository ignore rules to keep local-only workflow/editor notes and scaffold folders out of version control.
+- Improved buzzer behavior in simulation for clearer Wokwi audio output.
+- Removed unused tracked scaffold directories (`include/`, `lib/`, `test/`) to keep the repository focused on active source and docs.
+- Added follow-up housekeeping commits to preserve local-only folders without polluting tracked project artifacts.
+
