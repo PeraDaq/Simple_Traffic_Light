@@ -68,8 +68,8 @@ Current file in this repository:
 [wokwi]
 version = 1
 author = "Mohanad Sharif"
-title = "Simple ADC LCD"
-description = "ADC input from potentiometer displayed on I2C LCD1602"
+title = "Simple Traffic Light"
+description = "Interrupt-driven traffic light with LEDs, push button, and buzzer"
 board = "uno"
 firmware = '../.pio/build/uno/firmware.hex'
 elf = '../.pio/build/uno/firmware.elf'
@@ -79,10 +79,6 @@ What matters technically:
 
 - `board = "uno"` matches the project target.
 - `firmware` and `elf` paths are relative to `Wokwi/` and point to PlatformIO outputs.
-
-Recommended cleanup (optional):
-
-- Update `title` and `description` to reflect this traffic-light project for consistency.
 
 ## 3. Verify Circuit in `Wokwi/diagram.json`
 
