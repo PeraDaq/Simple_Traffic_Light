@@ -73,4 +73,3 @@ All notable changes to this project will be documented in this file.
 - Review API.md for function signatures
 - Check CONTRIBUTING.md before submitting PRs
 - Run full test suite (see Contributing for checklist)
-
