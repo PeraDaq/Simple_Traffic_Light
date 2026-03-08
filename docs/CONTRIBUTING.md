@@ -4,7 +4,7 @@ Thank you for your interest in contributing to the Simple Traffic Light project!
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 1. [Code of Conduct](#code-of-conduct)
 2. [Getting Started](#getting-started)
@@ -19,7 +19,7 @@ Thank you for your interest in contributing to the Simple Traffic Light project!
 
 ---
 
-## 🤝 Code of Conduct
+## Code of Conduct
 
 ### Our Commitment
 
@@ -33,6 +33,7 @@ We are committed to providing a welcoming and inclusive environment for all cont
 ### Unacceptable Behavior
 
 The following behaviors are not tolerated:
+
 - Harassment, discrimination, or personal attacks
 - Offensive or derogatory language
 - Trolling or intentionally disruptive comments
@@ -42,13 +43,14 @@ The following behaviors are not tolerated:
 ### Reporting Issues
 
 If you experience or witness unacceptable behavior, please report it by:
+
 - Emailing the maintainers privately
 - Opening a confidential GitHub issue
 - Using the GitHub abuse reporting feature
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Before You Start
 
@@ -78,7 +80,7 @@ If you experience or witness unacceptable behavior, please report it by:
 We welcome contributions in many forms:
 
 | Type | Examples | Difficulty |
-|------|----------|-----------|
+| --- | --- | --- |
 | **Bug Fixes** | Fix incorrect behavior, memory leaks | Medium |
 | **Features** | New LED modes, configurable timings, debouncing | Medium-Hard |
 | **Documentation** | Fix typos, improve clarity, add examples | Easy |
@@ -88,7 +90,7 @@ We welcome contributions in many forms:
 
 ---
 
-## 💻 Development Setup
+## Development Setup
 
 ### Prerequisites
 
@@ -161,7 +163,7 @@ code .
 
 ---
 
-## ✏️ Making Changes
+## Making Changes
 
 ### Create a Feature Branch
 
@@ -184,7 +186,7 @@ git checkout -b docs/improve-hardware-guide
 Use prefixes to categorize your work:
 
 | Prefix | Purpose | Examples |
-|--------|---------|----------|
+| --- | --- | --- |
 | `feature/` | New functionality | `feature/add-pwm-led-control` |
 | `fix/` | Bug fixes | `fix/buzzer-frequency-off` |
 | `docs/` | Documentation | `docs/add-wokwi-guide` |
@@ -231,7 +233,7 @@ git push origin feature/add-configurable-timing
 
 ---
 
-## 📝 Code Guidelines
+## Code Guidelines
 
 ### C/C++ Code Style
 
@@ -427,7 +429,7 @@ while (!stopRequested) {
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ### Build Testing
 
@@ -517,7 +519,7 @@ Before submitting, verify:
 
 ---
 
-## 📤 Submitting Changes
+## Submitting Changes
 
 ### Commit Messages
 
@@ -543,7 +545,7 @@ Fixes #42
 
 ### Commit Message Types
 
-```
+```text
 feat:     A new feature
 fix:      A bug fix
 docs:     Documentation only changes
@@ -576,7 +578,8 @@ chore:    Changes to build process, dependencies, or tooling
 ### Example Commit Messages
 
 **Good**:
-```
+
+```text
 Add configurable timing for LED flashing
 
 - Extract hard-coded delays into #defines
@@ -587,7 +590,8 @@ Fixes #35
 ```
 
 **Bad**:
-```
+
+```text
 Fixed stuff
 
 - Changed some code
@@ -596,17 +600,19 @@ Fixed stuff
 
 ---
 
-## 🔀 Pull Request Process
+## Pull Request Process
 
 ### Before Opening a PR
 
 1. **Sync with Upstream**:
+
    ```bash
    git fetch upstream
    git rebase upstream/main
    ```
 
 2. **Verify Tests Pass**:
+
    ```bash
    pio run        # Should compile
    pio run -t upload  # Should upload (if have hardware)
@@ -621,6 +627,7 @@ Fixed stuff
 ### Opening a Pull Request
 
 1. **Push to Your Fork**:
+
    ```bash
    git push origin feature/your-feature-name
    ```
@@ -631,6 +638,7 @@ Fixed stuff
    - Ensure your branch is selected
 
 3. **Fill PR Template**:
+
    ```markdown
    ## Description
    Brief description of what this PR does.
@@ -662,7 +670,7 @@ Fixed stuff
 
 ### PR Title Format
 
-```
+```text
 type: Brief description
 
 # Examples:
@@ -689,7 +697,7 @@ refactor: Extract LED control into functions
 
 ---
 
-## 🐛 Common Issues
+## Common Issues
 
 ### Issue: Merge Conflicts
 
@@ -748,7 +756,7 @@ pio run  # Compiler warnings about style
 
 ---
 
-## 📋 Areas for Contribution
+## Areas for Contribution
 
 ### High Priority
 
@@ -773,13 +781,13 @@ pio run  # Compiler warnings about style
 
 ---
 
-## 🏆 Recognition
+## Recognition
 
 ### Contributors
 
 We recognize all types of contributions:
 
-- **Code Contributions**: Listed in CONTRIBUTORS.md
+- **Code Contributions**: Credited via GitHub contributors and release notes
 - **Bug Reports**: Credited in issue discussions
 - **Documentation**: Credited in file headers
 - **Reviews**: Mentioned in PR discussions
@@ -787,38 +795,42 @@ We recognize all types of contributions:
 ### Hall of Fame
 
 Major contributors are recognized in:
-- [CONTRIBUTORS.md](CONTRIBUTORS.md) file
+
 - GitHub contributors page (automatic)
 - Release notes for significant contributions
 
 ---
 
-## 📚 Additional Resources
+## Additional Resources
 
 ### Project Documentation
+
 - [README.md](../README.md) - Project overview
 - [API.md](API.md) - Technical API reference
 - [HARDWARE.md](HARDWARE.md) - Hardware specifications
 - [CHANGELOG.md](CHANGELOG.md) - Version history
 
 ### Arduino Resources
+
 - [Arduino Language Reference](https://www.arduino.cc/reference/en/)
 - [Arduino Getting Started](https://www.arduino.cc/en/Guide)
 - [Interrupt Documentation](https://www.arduino.cc/reference/en/language/functions/external-interrupts/attachinterrupt/)
 
 ### Development Tools
+
 - [PlatformIO Documentation](https://docs.platformio.org)
 - [Wokwi Simulator](https://wokwi.com/docs)
 - [Git Basics](https://git-scm.com/book)
 
 ### Community
+
 - [Arduino Community Forums](https://forum.arduino.cc/)
 - [Arduino Discord](https://discord.gg/arduino)
 - [GitHub Discussions](https://github.com/PeraDaq/Simple_Traffic_Light/discussions)
 
 ---
 
-## ❓ Getting Help
+## Getting Help
 
 ### Questions?
 
@@ -835,7 +847,7 @@ Major contributors are recognized in:
 
 ---
 
-## 📞 Contact
+## Contact
 
 - **Issues**: Report bugs and request features on GitHub
 - **Discussions**: Ask questions and discuss ideas

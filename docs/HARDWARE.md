@@ -9,14 +9,14 @@ Complete hardware documentation for the Simple Traffic Light interrupt-driven co
 ### Microcontroller
 
 | Item | Qty | Spec | Purpose | Cost |
-|------|-----|------|---------|------|
+| --- | --- | --- | --- | --- |
 | Arduino Uno R3 | 1 | ATmega328P @ 16MHz | Main controller | $20-25 |
 | USB Cable | 1 | USB-A to Micro-B | Power & Programming | $3-5 |
 
 ### LEDs (Traffic Lights)
 
 | Item | Qty | Spec | Color | Purpose | Cost |
-|------|-----|------|-------|---------|------|
+| --- | --- | --- | --- | --- | --- |
 | Standard LED | 1 | 5mm, 20mA max | Red | Stop signal | $0.10 |
 | Standard LED | 1 | 5mm, 20mA max | Amber/Yellow | Caution signal | $0.10 |
 | Standard LED | 1 | 5mm, 20mA max | Green | Go signal | $0.10 |
@@ -24,11 +24,12 @@ Complete hardware documentation for the Simple Traffic Light interrupt-driven co
 ### Current-Limiting Resistors (for LEDs)
 
 | Item | Qty | Spec | Purpose | Cost |
-|------|-----|------|---------|------|
+| --- | --- | --- | --- | --- |
 | Resistor | 3 | 220Ω 1/4W | LED protection | $0.05 each |
 
 **Resistor Calculation**:
-```
+
+```text
 V_LED = 2.0V (typical for red/amber/green)
 V_supply = 5V
 I_desired = 10-20mA (safe operating current)
@@ -43,7 +44,7 @@ Actual current: (5V - 2V) / 220Ω = 13.6mA ✓
 ### Input Control
 
 | Item | Qty | Spec | Purpose | Cost |
-|------|-----|------|---------|------|
+| --- | --- | --- | --- | --- |
 | Push Button | 1 | Momentary NO switch | Trigger stop sequence | $0.50 |
 | Resistor | 1 | 10kΩ 1/4W (optional) | Pull-down resistor | $0.05 |
 
@@ -52,31 +53,32 @@ Actual current: (5V - 2V) / 220Ω = 13.6mA ✓
 ### Audio Output
 
 | Item | Qty | Spec | Frequency | Purpose | Cost |
-|------|-----|------|-----------|---------|------|
+| --- | --- | --- | --- | --- | --- |
 | Buzzer | 1 | 2-5kHz active buzzer | 2000Hz | Audible alert | $1-3 |
 
-**OR**
+### OR
 
 | Item | Qty | Spec | Frequency | Purpose | Cost |
-|------|-----|------|-----------|---------|------|
+| --- | --- | --- | --- | --- | --- |
 | Speaker | 1 | 8Ω, 0.5W | Variable | Audible alert | $2-5 |
 
 ### Prototyping
 
 | Item | Qty | Spec | Purpose | Cost |
-|------|-----|------|---------|------|
+| --- | --- | --- | --- | --- |
 | Breadboard | 1 | 830 tie-points | Circuit assembly | $3-5 |
 | Jumper Wires | ~30 | 22AWG, various colors | Connections | $3-5 |
 
 ### Power Supply
 
 | Item | Qty | Spec | Purpose | Cost |
-|------|-----|------|---------|------|
+| --- | --- | --- | --- | --- |
 | USB Power | 1 | 5V 500mA | Via Arduino USB | $0 (included) |
 
 **Optional for Higher Current**:
+
 | Item | Qty | Spec | Purpose | Cost |
-|------|-----|------|---------|------|
+| --- | --- | --- | --- | --- |
 | External 5V Supply | 1 | 1A regulated PSU | Backup power | $5-10 |
 
 ---
@@ -84,7 +86,7 @@ Actual current: (5V - 2V) / 220Ω = 13.6mA ✓
 ## 💰 Total BOM Cost Estimate
 
 | Category | Cost |
-|----------|------|
+| --- | --- |
 | Microcontroller | $23-30 |
 | LEDs & Resistors | $1-2 |
 | Button | $0.50 |
@@ -105,12 +107,12 @@ Actual current: (5V - 2V) / 220Ω = 13.6mA ✓
 #define push_button 2   // Push button input (interrupt-capable)
 #define buzzer 6        // Buzzer output (tone generation)
 // LED_BUILTIN         // Digital 13 - Status indicator (optional)
-```
+```text
 
 ### Arduino UNO Pin Layout
 
 | Pin | Type | Function | Component | Notes |
-|-----|------|----------|-----------|-------|
+| --- | --- | --- | --- | --- |
 | D2 | INPUT | Push Button | Button | Interrupt-capable (INT0) |
 | D3 | OUTPUT | Amber LED | LED + 220Ω resistor | PWM capable |
 | D4 | OUTPUT | Green LED | LED + 220Ω resistor | PWM capable |
@@ -126,7 +128,7 @@ Actual current: (5V - 2V) / 220Ω = 13.6mA ✓
 
 ### Complete Wiring Diagram (Breadboard Layout)
 
-```
+```text
 Breadboard View:
 
                     USB Power
@@ -148,7 +150,7 @@ Breadboard View:
 
 ### Detailed Connection Diagram
 
-```
+```text
 5V Rail (Red)
   ├─→ Push Button (Left pin)
   ├─→ Buzzer (+ / Red wire)
@@ -182,7 +184,7 @@ D6 (Yellow/Blue wire)
 
 ### Schematic (ASCII Art)
 
-```
+```text
      ╔═══════════════════╗
      ║  Arduino Uno      ║
      ║                   ║
@@ -219,11 +221,13 @@ attachInterrupt(digitalPinToInterrupt(push_button), stopTraffic, FALLING);
 ```
 
 **Wiring**:
+
 - Button Pin 1 (Left) → Arduino 5V rail
 - Button Pin 2 (Right) → Arduino D2 (INPUT_PULLUP)
 - Button Pin 2 (Right) → GND rail (via button connection)
 
 **Why INPUT_PULLUP?**
+
 - Arduino has internal 20kΩ pull-up resistor on D2
 - When button pressed: D2 = LOW (active)
 - When button released: D2 = HIGH (inactive)
@@ -233,36 +237,39 @@ attachInterrupt(digitalPinToInterrupt(push_button), stopTraffic, FALLING);
 
 #### Red LED (D5)
 
-```
+```text
 Arduino D5 ─→ 220Ω Resistor ─→ Red LED Anode (+)
                                 Red LED Cathode (-) ─→ GND
 ```
 
 **Specifications**:
+
 - LED Forward Voltage: 2.0V @ 10-20mA
 - Resistor Current Limiting: (5V - 2V) / 220Ω = 13.6mA ✓
 - Power Dissipation: 13.6mA × 3V = 40.8mW
 
 #### Amber/Yellow LED (D3)
 
-```
+```text
 Arduino D3 ─→ 220Ω Resistor ─→ Amber LED Anode (+)
                                  Amber LED Cathode (-) ─→ GND
 ```
 
 **Specifications**:
+
 - LED Forward Voltage: 2.0V @ 10-20mA
 - Resistor Current Limiting: Same as red
 - Power Dissipation: ~40mW
 
 #### Green LED (D4)
 
-```
+```text
 Arduino D4 ─→ 220Ω Resistor ─→ Green LED Anode (+)
                                  Green LED Cathode (-) ─→ GND
 ```
 
 **Specifications**:
+
 - LED Forward Voltage: 2.0V @ 10-20mA
 - Resistor Current Limiting: Same as red
 - Power Dissipation: ~40mW
@@ -273,12 +280,13 @@ Arduino D4 ─→ 220Ω Resistor ─→ Green LED Anode (+)
 
 #### Active Buzzer (Recommended)
 
-```
+```text
 Arduino D6 ─→ 1kΩ Resistor (optional) ─→ Buzzer (+)
               Buzzer (-) ─→ GND
 ```
 
 **Specifications**:
+
 - Frequency: 2000 Hz (fixed internal oscillator)
 - Voltage: 5V DC
 - Current: ~20-30mA
@@ -286,6 +294,7 @@ Arduino D6 ─→ 1kΩ Resistor (optional) ─→ Buzzer (+)
 - Stop: `noTone(buzzer);`
 
 **Advantages**:
+
 - Simple control (digital pin)
 - Built-in oscillator (no PWM needed)
 - Consistent frequency
@@ -293,46 +302,51 @@ Arduino D6 ─→ 1kΩ Resistor (optional) ─→ Buzzer (+)
 
 #### Speaker (Alternative)
 
-```
+```text
 Arduino D6 ─→ 100Ω Resistor ─→ Speaker (+)
               Speaker (-) ─→ GND
 ```
 
 **Specifications**:
+
 - Impedance: 8Ω typical
 - Power: 0.5W max
 - Frequency: Variable via PWM
 - Code: `tone(buzzer, 2000);` (uses PWM)
 
 **Advantages**:
+
 - Variable frequency capability
 - Better sound quality
 - Can play melodies
 
 ### Status LED Connection (Built-in LED - Optional)
 
-```
+```text
 Arduino D13 ─→ Built-in LED (with resistor on board)
                └─→ GND (via resistor)
 ```
 
 **Current Code Usage**:
+
 ```cpp
 digitalWrite(LED_BUILTIN, LOW);   // Indicates normal operation (green)
 digitalWrite(LED_BUILTIN, HIGH);  // Indicates stop sequence (red)
-```
+```text
 
 ---
 
 ## 🔌 Complete Connection Checklist
 
 ### Power Connections
+
 - [ ] USB cable connected to Arduino and computer/power adapter
 - [ ] 5V rail has stable 5V output (verify with multimeter)
 - [ ] GND rail connected to USB ground
 - [ ] All components share common GND
 
 ### LED Connections
+
 - [ ] Red LED anode → D5 via 220Ω resistor
 - [ ] Amber LED anode → D3 via 220Ω resistor
 - [ ] Green LED anode → D4 via 220Ω resistor
@@ -341,18 +355,21 @@ digitalWrite(LED_BUILTIN, HIGH);  // Indicates stop sequence (red)
 - [ ] No LED pins shorted together
 
 ### Button Connection
+
 - [ ] Push button left pin → 5V rail
 - [ ] Push button right pin → D2 (with pull-up)
 - [ ] Push button right pin → GND (through button contact)
 - [ ] Button works when pressed (LED should react)
 
 ### Buzzer Connection
+
 - [ ] Buzzer + (red) → D6 (via 1kΩ resistor, optional)
 - [ ] Buzzer - (black) → GND rail
 - [ ] Buzzer makes sound during stop sequence
 - [ ] Check volume is appropriate
 
 ### Ground Connections
+
 - [ ] Arduino GND → Breadboard GND rail (multiple points)
 - [ ] All component grounds connected to same GND rail
 - [ ] No floating ground points
@@ -365,7 +382,7 @@ digitalWrite(LED_BUILTIN, HIGH);  // Indicates stop sequence (red)
 ### Current Draw Analysis
 
 | Component | Voltage | Current | Status |
-|-----------|---------|---------|--------|
+| --- | --- | --- | --- |
 | Arduino UNO | 5V | ~50mA | Idle state |
 | Red LED (on) | 2.0V | 13.6mA | Active |
 | Amber LED (on) | 2.0V | 13.6mA | Active |
@@ -429,7 +446,7 @@ digitalWrite(LED_BUILTIN, HIGH);  // Indicates stop sequence (red)
 ### Current-Limiting Resistors
 
 | Parameter | Value |
-|-----------|-------|
+| --- | --- |
 | Resistance | 220Ω |
 | Power Rating | 1/4W minimum |
 | Tolerance | ±5% (E series) |
@@ -439,7 +456,7 @@ digitalWrite(LED_BUILTIN, HIGH);  // Indicates stop sequence (red)
 ### Push Button
 
 | Parameter | Value |
-|-----------|-------|
+| --- | --- |
 | Type | Momentary contact, NO (normally open) |
 | Contact Resistance | <100mΩ |
 | Max Current | 50mA DC |
@@ -451,7 +468,7 @@ digitalWrite(LED_BUILTIN, HIGH);  // Indicates stop sequence (red)
 ### Active Buzzer
 
 | Parameter | Value |
-|-----------|-------|
+| --- | --- |
 | Operating Voltage | 4-8V DC (5V typical) |
 | Operating Frequency | ~2kHz (fixed) |
 | Sound Output | ~85dB @ 10cm |
@@ -725,28 +742,27 @@ The `Wokwi/diagram.json` includes:
 ### Simulation Setup
 
 1. **Build Firmware**:
+
    ```bash
    pio run -e uno
    ```
 
-2. **Open in Wokwi**:
-   - Go to https://wokwi.com
-   - Create new project or load from `Wokwi/diagram.json`
+1. **Open in Wokwi**:
 
-3. **Configure Firmware Path** (in `Wokwi/wokwi.toml`):
-   ```toml
-   firmware = '../.pio/build/uno/firmware.hex'
-   elf = '../.pio/build/uno/firmware.elf'
-   ```
+- Go to [https://wokwi.com](https://wokwi.com)
+- Create new project or load from `Wokwi/diagram.json`
 
-4. **Run Simulation**:
+1. **Configure Firmware Path** (in `Wokwi/wokwi.toml`):
+
+  ```toml
+  firmware = '../.pio/build/uno/firmware.hex'
+  elf = '../.pio/build/uno/firmware.elf'
+  ```
+
+1. **Run Simulation**:
    - Click "Play" button in Wokwi
    - Press simulated button to trigger stop sequence
    - Observe LED changes and buzzer activity
-
----
-
-## 🎯 Design Considerations
 
 ### Layout Best Practices
 
@@ -786,16 +802,19 @@ The `Wokwi/diagram.json` includes:
 ## 📚 Additional Resources
 
 ### Component Datasheets
+
 - [Arduino UNO Datasheet](https://store.arduino.cc/products/arduino-uno-rev3)
 - [ATmega328P Spec](https://ww1.microchip.com/datasheet/ATmega328P)
 - [Common LED Specifications](https://www.electronics-tutorials.ws/diode/diode_3.html)
 
 ### Simulation Tools
+
 - [Wokwi.com](https://wokwi.com) - Arduino simulator
 - [Tinkercad Circuits](https://www.tinkercad.com/circuits) - Circuit simulator
 - [LTspice](https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html) - SPICE simulator
 
 ### Build Tips
+
 - [Breadboard Guide](https://www.electronics-tutorials.ws/blog/breadboard.html)
 - [Resistor Color Codes](https://en.wikipedia.org/wiki/Electronic_color_code)
 - [LED Calculations](https://www.instructables.com/LEDs-for-Beginners/)

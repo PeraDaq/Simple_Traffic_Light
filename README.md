@@ -1,6 +1,6 @@
 # Simple Traffic Light
 
-<img width="1134" height="782" alt="Simple Traffic Light Controller" src="https://github.com/user-attachments/assets/546e8721-4db4-4334-a672-aa2e9e30e8f3" />
+![Simple Traffic Light Controller](https://github.com/user-attachments/assets/546e8721-4db4-4334-a672-aa2e9e30e8f3)
 
 **An interrupt-driven traffic light controller built on Arduino UNO with hardware simulation support.**
 
@@ -8,7 +8,7 @@ A simple yet complete traffic light control system that demonstrates real-world 
 
 ---
 
-## 🎯 Table of Contents
+## Table of Contents
 
 1. [Overview](#overview)
 2. [Features](#features)
@@ -28,7 +28,7 @@ A simple yet complete traffic light control system that demonstrates real-world 
 
 ---
 
-## 📖 Overview
+## Overview
 
 ### What Is This Project?
 
@@ -58,21 +58,24 @@ The Simple Traffic Light is an educational and practical embedded systems projec
 
 ---
 
-## ✨ Features
+## Features
 
 ### Core Functionality
 
 ✅ **Interrupt-Driven Design**
+
 - Hardware interrupt (INT0) on pin D2
 - Immediate button response (<5µs latency)
 - Non-blocking ISR (interrupt service routine)
 
 ✅ **Traffic Light States**
+
 - **Normal State**: Green LED continuously ON
 - **Transition Delay**: 3-second post-press delay
 - **Stop Sequence**: Coordinated amber flash → red → buzzer → amber
 
 ✅ **Stop Sequence Details**
+
 - Phase 1: Green turns OFF (500ms)
 - Phase 2: Amber flashes 5 times (5 seconds)
 - Phase 3: Red turns ON
@@ -81,17 +84,20 @@ The Simple Traffic Light is an educational and practical embedded systems projec
 - Total duration: ~12 seconds
 
 ✅ **Audio/Visual Feedback**
+
 - 3 color-coded LEDs (Red, Amber/Yellow, Green)
 - Active buzzer with 2000Hz tone generation
 - Built-in status LED indicator (green=normal, red=stop)
 - Serial debug output at 9600 baud
 
 ✅ **Dual Environment Support**
+
 - **PlatformIO**: Cross-platform build system
 - **Wokwi**: Browser-based Arduino simulator
 - Same firmware runs in both environments
 
 ✅ **Safety Features**
+
 - Button presses ignored during stop sequence
 - 3-second transition delay for driver/pedestrian reaction time
 - Built-in LED status indicator
@@ -100,6 +106,7 @@ The Simple Traffic Light is an educational and practical embedded systems projec
 ### Hardware Requirements
 
 **Minimal Bill of Materials**:
+
 - 1× Arduino UNO R3 ($20-25)
 - 3× Standard 5mm LEDs ($0.30)
 - 3× 220Ω resistors ($0.15)
@@ -112,7 +119,7 @@ The Simple Traffic Light is an educational and practical embedded systems projec
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1-Minute Setup
 
@@ -151,22 +158,24 @@ pio device monitor -b 9600
 1. Power on Arduino via USB
 2. Open serial monitor at 9600 baud
 3. You should see:
-   ```
-   Setting up Arduino Green, Amber, Red LED Pins (3, 4, 5)...
-   Setting up Arduino Push Button "Input Pullup" pin 2...
-   Attaching ISR to Push Button pin, monitoring button status continuously!
-   Green Traffic Light On!
-   ```
+
+    ```text
+    Setting up Arduino Green, Amber, Red LED Pins (3, 4, 5)...
+    Setting up Arduino Push Button "Input Pullup" pin 2...
+    Attaching ISR to Push Button pin, monitoring button status continuously!
+    Green Traffic Light On!
+    ```
+
 4. Press the button - system will execute stop sequence
 5. After ~12 seconds, it returns to normal (green ON)
 
 ---
 
-## 🧠 How It Works
+## How It Works
 
 ### State Flow Diagram
 
-```
+```text
                     ┌─────────────────┐
                     │   Boot/Reset    │
                     └────────┬────────┘
@@ -238,6 +247,7 @@ attachInterrupt(digitalPinToInterrupt(push_button), stopTraffic, FALLING);
 ```
 
 **Why Use Interrupts?**
+
 - ✓ Immediate response to button press
 - ✓ Don't miss presses even if main code is busy
 - ✓ Cleaner than polling in main loop
@@ -251,6 +261,7 @@ volatile bool stopSequenceRunning = false;  // Sequence executing?
 ```
 
 **Why Volatile?**
+
 - Flags can change in ISR
 - Tells compiler not to optimize away flag checks
 - Ensures CPU reads actual RAM value, not cached register
@@ -268,13 +279,14 @@ void stopTraffic() {
 ```
 
 **Why Keep ISR Short?**
+
 - Blocks other code from executing
 - Longer ISR = missed interrupts
 - Real-time systems require fast ISRs
 
 #### 4. **Sequence Timing**
 
-```
+```text
 Timeline:     0s    3s     3.5s  5.5s  9.5s  12.5s
               │     │      │     │     │     │
 Button ───────┘     │      │     │     │     │
@@ -287,9 +299,9 @@ Button ───────┘     │      │     │     │     │
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
-```
+```text
 Simple_Traffic_Light/
 │
 ├── README.md                 # This file - Complete project guide
@@ -301,7 +313,7 @@ Simple_Traffic_Light/
 │   ├── API.md               # Complete API reference
 │   ├── CONTRIBUTING.md      # Contribution guidelines
 │   ├── CHANGELOG.md         # Version history
-│   ├── license.md           # MIT License
+│   ├── LICENSE.md           # MIT License
 │   └── WORKLOG.md           # Development log
 │
 ├── src/
@@ -316,13 +328,13 @@ Simple_Traffic_Light/
 ### File Descriptions
 
 | File | Purpose | For |
-|------|---------|-----|
+| --- | --- | --- |
 | README.md | Project overview & setup | Everyone |
 | docs/HARDWARE.md | Pin configs, wiring, schematics | Hardware builders |
 | docs/API.md | Function reference, timing specs | Programmers |
 | docs/CONTRIBUTING.md | Development guidelines | Contributors |
 | docs/CHANGELOG.md | Version history, features | Users & maintainers |
-| docs/license.md | License terms | Everyone |
+| docs/LICENSE.md | License terms | Everyone |
 | docs/WORKLOG.md | Development log | Maintainers |
 | platformio.ini | Build configuration | PlatformIO users |
 | src/main.cpp | Main firmware code | Arduino developers |
@@ -330,11 +342,12 @@ Simple_Traffic_Light/
 
 ---
 
-## 🔧 Hardware Setup
+## Hardware Setup
 
 ### Quick Hardware Checklist
 
 **Components**:
+
 - [ ] Arduino UNO R3
 - [ ] 3× Standard 5mm LEDs (Red, Amber, Green)
 - [ ] 3× 220Ω resistors
@@ -345,6 +358,7 @@ Simple_Traffic_Light/
 - [ ] USB cable (Micro-B)
 
 **Connections**:
+
 - [ ] Green LED anode → D4 via 220Ω resistor, cathode → GND
 - [ ] Amber LED anode → D3 via 220Ω resistor, cathode → GND
 - [ ] Red LED anode → D5 via 220Ω resistor, cathode → GND
@@ -353,6 +367,7 @@ Simple_Traffic_Light/
 - [ ] Arduino 5V → 5V rail, GND → GND rail
 
 **Verification**:
+
 - [ ] All connections firm in breadboard
 - [ ] No shorted wires
 - [ ] LED polarity correct (longer lead = positive)
@@ -364,7 +379,7 @@ Simple_Traffic_Light/
 
 ---
 
-## 🏗️ Building & Uploading
+## Building & Uploading
 
 ### Build Only (No Upload)
 
@@ -411,7 +426,8 @@ pio device monitor -b 9600
 
 ### Troubleshooting Build Issues
 
-**Error: Board not found**
+#### Error: Board not found
+
 ```bash
 # List available boards
 pio boards | grep uno
@@ -420,14 +436,16 @@ pio boards | grep uno
 pio run --environment uno
 ```
 
-**Error: Permission denied (Linux)**
+#### Error: Permission denied (Linux)
+
 ```bash
 # Add user to dialout group
 sudo usermod -a -G dialout $USER
 # Log out and back in
 ```
 
-**Error: "The system cannot find the path specified" (Windows)**
+#### Error: "The system cannot find the path specified" (Windows)
+
 ```bash
 # Ensure PlatformIO is in PATH
 # Try restarting IDE or command prompt
@@ -435,13 +453,14 @@ sudo usermod -a -G dialout $USER
 
 ---
 
-## 🎮 Running in Wokwi
+## Running in Wokwi
 
 ### Browser-Based Simulation
 
 Wokwi is a browser-based Arduino simulator. No hardware needed!
 
 **Advantages**:
+
 - ✅ Test before buying hardware
 - ✅ No USB cable needed
 - ✅ Fast iteration and debugging
@@ -482,6 +501,7 @@ elf = "../.pio/build/uno/firmware.elf"
 ```
 
 **Path Notes**:
+
 - Paths are relative to `Wokwi/` directory
 - `../` goes up one level to project root
 - `.pio/build/uno/` is PlatformIO build output
@@ -558,7 +578,8 @@ The Wokwi circuit includes:
 **Fix**: Rebuild with `pio run`, hard refresh browser (Ctrl+Shift+R), restart simulation
 
 **Issue**: Buzzer is silent  
-**Fix**: 
+**Fix**:
+
 1. Check browser audio permissions
 2. Increase buzzer volume in diagram.json: `"volume": "0.5"`
 3. Click on browser to enable audio (user interaction required)
@@ -568,7 +589,7 @@ The Wokwi circuit includes:
 
 ---
 
-## 🔍 Debugging
+## Debugging
 
 ### Serial Monitor Debugging
 
@@ -589,7 +610,8 @@ pio device monitor -b 9600
 ### Analyzing Serial Output
 
 **Expected Output (Normal Operation)**:
-```
+
+```text
 Green Traffic Light On!
 Doing nothing .. :)..
 Doing nothing .. :)..
@@ -598,7 +620,8 @@ Doing nothing .. :)..
 ```
 
 **Expected Output (After Button Press)**:
-```
+
+```text
 Button Pressed! Waiting for 3 seconds before running stop sequence...
 [3-second delay - no output]
 Button pressed! ISR Flag toggled to True!
@@ -619,30 +642,33 @@ Doing nothing .. :)..
 
 ### Common Debug Scenarios
 
-**Scenario 1: Button doesn't respond**
+#### Scenario 1: Button doesn't respond
+
 - Check serial output shows "Green Traffic Light On!"
 - If not, hardware isn't responding
 - Verify Button connection to D2
 - Use multimeter to check pin voltage
 
-**Scenario 2: Sequence runs but LEDs don't light**
+#### Scenario 2: Sequence runs but LEDs don't light
+
 - Verify LED connections (polarity, resistors)
 - Check serial shows sequence executing
 - Use multimeter to verify voltage at LED pins
 - LEDs may be reversed (anode/cathode swapped)
 
-**Scenario 3: Buzzer doesn't sound**
+#### Scenario 3: Buzzer doesn't sound
+
 - Hardware: Check D6 voltage (should pulse at 2000Hz)
 - Wokwi: Enable browser audio, increase volume in diagram.json
 - Verify `tone()` or `digitalWrite()` is being called
 
 ---
 
-## 🏛️ Architecture
+## Architecture
 
 ### Software Architecture
 
-```
+```text
 ┌─────────────────────────────────────────┐
 │         Arduino Firmware                │
 │  (src/main.cpp or Wokwi/sketch.ino)    │
@@ -685,7 +711,7 @@ Doing nothing .. :)..
 
 ### Data Flow
 
-```
+```text
 Hardware Event          ISR               Main Loop
 ───────────────        ───               ─────────
 Button press ──→  stopTraffic() ──→  stopRequested flag ──→ loop()
@@ -721,12 +747,12 @@ else {
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 ### Complete Documentation Set
 
 | Document | Purpose | Read Time |
-|----------|---------|-----------|
+| --- | --- | --- |
 | **README.md** (this file) | Overview, setup, quick start | 10 min |
 | **docs/HARDWARE.md** | Wiring, schematics, components | 15 min |
 | **docs/API.md** | Function reference, timing specs | 20 min |
@@ -736,18 +762,21 @@ else {
 ### Learning Path
 
 **Beginner** (Just want to build it):
+
 1. Read README.md (this file) - 10 min
 2. Follow Hardware Setup section
 3. Run Quick Start commands
 4. Test with button press
 
 **Intermediate** (Want to understand it):
+
 1. Read all of README.md - 30 min
 2. Read docs/HARDWARE.md for circuit details
 3. Review code structure in src/main.cpp
 4. Study docs/CHANGELOG.md for design decisions
 
 **Advanced** (Want to modify/extend it):
+
 1. Read docs/API.md for complete function reference
 2. Study interrupt handling and timing
 3. Review docs/CONTRIBUTING.md for code guidelines
@@ -755,11 +784,12 @@ else {
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 ### How to Contribute
 
 We welcome contributions! See **[CONTRIBUTING.md](docs/CONTRIBUTING.md)** for:
+
 - Development setup
 - Code style guidelines
 - Testing procedures
@@ -801,11 +831,11 @@ git push origin feature/your-feature
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the **MIT License**.
 
-```
+```text
 MIT License
 
 Copyright (c) 2026 Mohanad Sharif
@@ -817,12 +847,12 @@ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions...
 
-[See license.md for full text]
+[See LICENSE.md for full text]
 ```
 
 ---
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Common Issues & Solutions
 
@@ -830,6 +860,7 @@ furnished to do so, subject to the following conditions...
 
 **Q: "pio: command not found"**  
 **A**: PlatformIO not installed or not in PATH
+
 ```bash
 pip install platformio
 # Add to PATH if needed
@@ -837,6 +868,7 @@ pip install platformio
 
 **Q: "Board not found"**  
 **A**: Arduino not connected or wrong driver
+
 ```bash
 # Check if Arduino appears in device list
 pio boards list all | grep uno
@@ -847,6 +879,7 @@ pio run -t upload --upload-port /dev/ttyUSB0
 
 **Q: "Compilation errors"**  
 **A**: Check error message for missing files or syntax errors
+
 ```bash
 # Clean rebuild
 pio run --target clean
@@ -857,6 +890,7 @@ pio run
 
 **Q: LEDs don't light**  
 **A**: Check connections and polarity
+
 - Verify resistor in series with LED
 - Check LED anode (long lead) connected to pin via resistor
 - Check LED cathode (short lead) connected to GND
@@ -864,6 +898,7 @@ pio run
 
 **Q: Button doesn't work**  
 **A**: Check D2 connection and pull-up configuration
+
 - Verify button connected to D2
 - Verify `pinMode(push_button, INPUT_PULLUP)` in code
 - Use multimeter: should read ~5V when released, 0V when pressed
@@ -871,6 +906,7 @@ pio run
 
 **Q: Buzzer is silent**  
 **A**: Verify D6 connection and tone frequency
+
 - Check buzzer connected to D6
 - Listen closely (2000Hz is relatively quiet)
 - Verify `tone(buzzer, 2000)` is called
@@ -878,6 +914,7 @@ pio run
 
 **Q: Serial output is garbage**  
 **A**: Wrong baud rate or COM port
+
 - Set serial monitor to **9600 baud**
 - Verify correct COM port selected
 - Try different cable if available
@@ -886,6 +923,7 @@ pio run
 
 **Q: Firmware doesn't load in Wokwi**  
 **A**: Rebuild and verify paths
+
 ```bash
 pio run                    # Rebuild firmware
 # Check Wokwi/wokwi.toml firmware paths
@@ -894,19 +932,21 @@ pio run                    # Rebuild firmware
 
 **Q: LEDs don't light in simulation**  
 **A**: Check diagram.json connections
+
 - Verify LED parts in diagram.json
 - Check connections to Arduino pins D3, D4, D5
 - Ensure GND connections complete
 
 **Q: Buzzer silent in Wokwi**  
 **A**: Enable audio in browser
+
 - Click on page to enable audio (browser requirement)
 - Increase buzzer volume in diagram.json: `"volume": "0.5"`
 - Check browser audio isn't muted
 
 ---
 
-## ❓ FAQ
+## FAQ
 
 ### General Questions
 
@@ -943,6 +983,7 @@ A: Yes, connect a multimeter in series with 5V supply. Peak is ~110mA (all LEDs 
 
 **Q: How do I deploy this to production?**  
 A: This is an educational project. For real traffic lights, you'd need:
+
 - More powerful controller (typically PLC or industrial computer)
 - Redundancy and safety systems
 - Regulatory compliance (IEC 12923 standard)
@@ -953,25 +994,27 @@ A: This is an educational project. For real traffic lights, you'd need:
 A: Yes! This would be a great feature to add. See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for contribution guidelines.
 
 **Q: Where can I learn more?**  
-A: 
-- Arduino documentation: https://www.arduino.cc
-- Interrupts: https://www.arduino.cc/reference/en/language/functions/external-interrupts/attachinterrupt/
+A:
+
+- Arduino documentation: [https://www.arduino.cc](https://www.arduino.cc)
+- Interrupts: [https://www.arduino.cc/reference/en/language/functions/external-interrupts/attachinterrupt/](https://www.arduino.cc/reference/en/language/functions/external-interrupts/attachinterrupt/)
 - State machines: Search "Arduino state machine tutorial"
 
 ---
 
-## 📞 Support & Contact
+## Support and Contact
 
 ### Getting Help
 
 1. **Check Documentation**: README (you are here), docs/HARDWARE.md, docs/API.md
-2. **Search Issues**: https://github.com/PeraDaq/Simple_Traffic_Light/issues
+2. **Search Issues**: [https://github.com/PeraDaq/Simple_Traffic_Light/issues](https://github.com/PeraDaq/Simple_Traffic_Light/issues)
 3. **Read Troubleshooting**: See Troubleshooting section above
 4. **Open Issue**: Report bug or request feature on GitHub
 
 ### Reporting Issues
 
 When reporting a bug, include:
+
 - Arduino board and IDE/PlatformIO version
 - Exact error message or symptom
 - Steps to reproduce
@@ -982,6 +1025,7 @@ When reporting a bug, include:
 ### Feature Requests
 
 When requesting a feature:
+
 - Describe the desired behavior
 - Explain the use case
 - Provide examples if possible
@@ -989,10 +1033,10 @@ When requesting a feature:
 
 ---
 
-## 📊 Project Statistics
+## Project Statistics
 
 | Metric | Value |
-|--------|-------|
+| --- | --- |
 | Lines of Code | ~150 |
 | Flash Memory Used | 20.8% |
 | RAM Memory Used | 35.9% |
@@ -1004,9 +1048,10 @@ When requesting a feature:
 
 ---
 
-## 🗺️ Project Roadmap
+## Project Roadmap
 
 ### Completed (v1.0)
+
 ✅ Basic traffic light functionality  
 ✅ Hardware interrupt handling  
 ✅ Stop sequence with timing  
@@ -1014,6 +1059,7 @@ When requesting a feature:
 ✅ Complete documentation  
 
 ### Planned (Future Versions)
+
 - [ ] Debounce logic for button
 - [ ] Configurable timing parameters
 - [ ] Multiple button support
@@ -1022,34 +1068,39 @@ When requesting a feature:
 
 ---
 
-## 📖 Additional Resources
+## Additional Resources
 
 ### Learning Materials
+
 - [Arduino Interrupts Tutorial](https://www.arduino.cc/reference/en/language/functions/external-interrupts/attachinterrupt/)
 - [State Machine Design Patterns](https://en.wikipedia.org/wiki/Finite-state_machine)
 - [Embedded Systems Design](https://www.embedded.com/)
 
 ### Tools & Simulators
+
 - [Wokwi - Arduino Simulator](https://wokwi.com)
 - [PlatformIO - Build System](https://platformio.org)
 - [Arduino IDE](https://www.arduino.cc/en/software)
 
 ### Standards & References
+
 - [Traffic Light Standards](https://en.wikipedia.org/wiki/Traffic_light)
 - [Real-time Systems](https://en.wikipedia.org/wiki/Real-time_computing)
 - [Arduino Safety](https://www.arduino.cc/en/Guide/Safety)
 
 ---
 
-## 🎉 Acknowledgments
+## Acknowledgments
 
 ### Built With
+
 - **Arduino Framework**: Core microcontroller support
 - **PlatformIO**: Build system and project management
 - **Wokwi**: Simulation platform
 - **Community**: Feedback and contributions
 
 ### Thanks To
+
 - Arduino community for excellent documentation
 - Wokwi team for browser-based simulator
 - Contributors and testers
@@ -1057,17 +1108,17 @@ When requesting a feature:
 
 ---
 
-## 📝 Version History
+## Version History
 
 | Version | Date | Status | Notes |
-|---------|------|--------|-------|
+| --- | --- | --- | --- |
 | 1.0.0 | 2026-03-04 | Stable | Initial release, fully tested |
 
 See [CHANGELOG.md](docs/CHANGELOG.md) for detailed version history.
 
 ---
 
-## 📋 Checklist: Before Using This Project
+## Checklist: Before Using This Project
 
 - [ ] Read this entire README
 - [ ] Review [HARDWARE.md](docs/HARDWARE.md) for wiring
@@ -1082,12 +1133,8 @@ See [CHANGELOG.md](docs/CHANGELOG.md) for detailed version history.
 
 ---
 
-<div align="center">
-
-**Built with ❤️ for learning and embedded systems education**
+Built with ❤️ for learning and embedded systems education
 
 [⬆ Back to top](#simple-traffic-light) | [Report Issue](https://github.com/PeraDaq/Simple_Traffic_Light/issues) | [Contribute](docs/CONTRIBUTING.md)
 
-[MIT License](docs/license.md) © 2026 Mohanad Sharif
-
-</div>
+[MIT License](docs/LICENSE.md) © 2026 Mohanad Sharif

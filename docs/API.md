@@ -4,7 +4,7 @@ Complete API documentation for the Simple Traffic Light interrupt-driven control
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 1. [Overview](#overview)
 2. [Pin Configuration](#pin-configuration)
@@ -20,7 +20,7 @@ Complete API documentation for the Simple Traffic Light interrupt-driven control
 
 ---
 
-## 🎯 Overview
+## Overview
 
 ### Purpose
 
@@ -39,7 +39,7 @@ The Simple Traffic Light API implements an interrupt-driven traffic light contro
 
 ---
 
-## 🔌 Pin Configuration
+## Pin Configuration
 
 ### Pin Definitions
 
@@ -64,7 +64,7 @@ The Simple Traffic Light API implements an interrupt-driven traffic light contro
 ### Arduino UNO Pin Map
 
 | Pin | Type | Component | Signal | Active | Mode |
-|-----|------|-----------|--------|--------|------|
+| --- | --- | --- | --- | --- | --- |
 | D2 | INPUT | Push Button | Interrupt trigger | LOW | INPUT_PULLUP |
 | D3 | OUTPUT | Amber LED | Control signal | HIGH | Digital |
 | D4 | OUTPUT | Green LED | Control signal | HIGH | Digital |
@@ -77,7 +77,7 @@ The Simple Traffic Light API implements an interrupt-driven traffic light contro
 ### Pin Capabilities
 
 | Pin | Function | Special Features |
-|-----|----------|------------------|
+| --- | --- | --- |
 | D2 | Push Button | INT0 interrupt pin, supports FALLING edge detection |
 | D3 | Amber LED | PWM-capable (3,9,10,11 on Uno), not used for PWM here |
 | D4 | Green LED | Standard digital output |
@@ -86,7 +86,7 @@ The Simple Traffic Light API implements an interrupt-driven traffic light contro
 
 ---
 
-## 📊 Global Variables
+## Global Variables
 
 ### State Variables
 
@@ -114,10 +114,12 @@ unsigned long stopTime = 0;
 **Type**: `unsigned long` (0 to 4,294,967,295 milliseconds ≈ 49.7 days)
 
 **When Set**:
+
 - `startTime` = Set at beginning of `runStopSequence()` via `millis()`
 - `stopTime` = Set at end of `runStopSequence()` via `millis()`
 
 **Usage**:
+
 ```cpp
 // Calculate elapsed time
 unsigned long elapsed = stopTime - startTime;  // milliseconds
@@ -136,16 +138,19 @@ volatile bool stopSequenceRunning = false;
 **Type**: `bool` (volatile = can change in ISR)
 
 **Values**:
+
 - `true` = Stop sequence currently executing
 - `false` = System in normal operation or idle
 
 **Accessed By**:
+
 - `setup()` - Initialized to false
 - `loop()` - Checked to prevent new sequences during execution
 - `runStopSequence()` - Set to true at start, false at end
 - `stopTraffic()` - Checked to prevent button presses during sequence
 
 **Protection**:
+
 ```cpp
 // In loop(): Prevent reentrant calls
 if (stopSequenceRunning) {
@@ -169,16 +174,20 @@ volatile bool stopRequested = false;
 **Type**: `bool` (volatile = can change in ISR)
 
 **Values**:
+
 - `true` = Button press detected by ISR
 - `false` = No button press or already processed
 
 **Set By**:
+
 - `stopTraffic()` - ISR sets to true when button pressed
 
 **Reset By**:
+
 - `loop()` - Sets back to false before executing sequence
 
 **Usage Pattern**:
+
 ```cpp
 // In loop()
 while (!stopRequested) {
@@ -191,7 +200,7 @@ runStopSequence();  // Execute sequence
 
 ---
 
-## ⚙️ Functions
+## Functions
 
 ### Core Functions
 
@@ -232,17 +241,20 @@ void setup() {
 ```
 
 **Side Effects**:
+
 - Serial communication initialized
 - All pins configured
 - ISR attached and enabled
 - Interrupt monitoring active
 
 **Initial State After Setup**:
+
 - All LEDs are OFF (digital outputs are LOW by default)
 - First call to `loop()` will turn green ON
 - System waits for button press
 
 **Notes**:
+
 - `INPUT_PULLUP` means button pin defaults to HIGH (5V)
 - Button press pulls pin LOW (to GND)
 - FALLING edge triggers interrupt (transition from HIGH to LOW)
@@ -261,7 +273,7 @@ void setup() {
 
 **Flow Diagram**:
 
-```
+```text
 ┌─ loop() START
 │
 ├─ Check: Is stopSequenceRunning?
@@ -342,7 +354,8 @@ void loop() {
 - **Reentrance Prevention**: `if (stopSequenceRunning) return;` prevents overlapping sequences
 
 **Serial Output During Loop**:
-```
+
+```text
 Green Traffic Light On!
 Doing nothing .. :)..
 Doing nothing .. :)..
@@ -372,7 +385,7 @@ Green Traffic Light On!
 
 **Sequence Diagram**:
 
-```
+```text
 0s      ├─ Green OFF (500ms delay)
         │
 500ms   ├─ Amber FLASH 5× (500ms ON/OFF each = 5000ms)
@@ -467,7 +480,7 @@ void runStopSequence() {
 
 **Timing Verification**:
 
-```
+```text
 Phase                    | Duration  | Cumulative
 Green OFF               | 500ms     | 500ms
 Amber Flash 5×          | 5000ms    | 5500ms
@@ -481,7 +494,7 @@ TOTAL                   | 12500ms   | ≈12.5 seconds
 **LED State After Sequence**:
 
 | LED | State After |
-|-----|------------|
+| --- | --- |
 | Green | OFF |
 | Amber | OFF |
 | Red | ON |
@@ -501,7 +514,8 @@ TOTAL                   | 12500ms   | ≈12.5 seconds
 
 **Returns**: void
 
-**Trigger Condition**: 
+**Trigger Condition**:
+
 - Pin D2 transitions from HIGH to LOW (FALLING edge)
 - Occurs when push button is pressed
 
@@ -525,7 +539,7 @@ void stopTraffic() {
 
 **Behavior**:
 
-```
+```text
 Button Press Event Timeline:
 
 Time    | Button State | D2 Pin | ISR Triggered?
@@ -538,7 +552,7 @@ Time    | Button State | D2 Pin | ISR Triggered?
 
 **ISR Execution**:
 
-```
+```text
 ISR stopTraffic() called
 │
 ├─ Check: Is stopSequenceRunning == true?
@@ -572,11 +586,11 @@ digitalWrite(led, HIGH);  // If button pressed here, we miss it!
 
 ---
 
-## 🔄 State Machine
+## State Machine
 
 ### State Diagram
 
-```
+```text
                      ┌──────────────────┐
                      │   POWER-UP       │
                      └────────┬─────────┘
@@ -643,7 +657,7 @@ digitalWrite(led, HIGH);  // If button pressed here, we miss it!
 ### State Transition Rules
 
 | Current State | Condition | Next State | Action |
-|---------------|-----------|-----------|--------|
+| --- | --- | --- | --- |
 | NORMAL | `stopSequenceRunning == true` | NORMAL | Early return, skip setup |
 | NORMAL | `!stopRequested` | NORMAL | Wait in blocking while loop |
 | NORMAL | `stopRequested == true` | TRANSITION | Exit while loop, wait 3s |
@@ -653,7 +667,7 @@ digitalWrite(led, HIGH);  // If button pressed here, we miss it!
 
 ### Flag State Transitions
 
-```
+```text
 Flag: stopRequested
 ─────────────────────────────────────────────────────
 Initial:        false (no button press)
@@ -669,12 +683,12 @@ Sequence end:   false (at end of runStopSequence)
 
 ---
 
-## ⏱️ Timing Specifications
+## Timing Specifications
 
 ### Critical Timings
 
 | Parameter | Value | Source | Purpose |
-|-----------|-------|--------|---------|
+| --- | --- | --- | --- |
 | ISR Latency | <5 µs | Hardware | Button response time |
 | Transition Delay | 3000 ms | Code | Post button-press wait |
 | Green OFF | 500 ms | Code | Phase 1 duration |
@@ -707,7 +721,8 @@ for (int i = 0; i < 5; i++) {
   - No real-time OS guarantees
 
 - **Measured Example**:
-  ```
+
+  ```text
   Expected: 12.5 seconds
   Measured: 12.3-12.6 seconds
   Variance: ±0.1-0.3 seconds (acceptable)
@@ -728,7 +743,7 @@ Serial.println(" seconds");
 
 ---
 
-## 📡 Serial Output
+## Serial Output
 
 ### Configuration
 
@@ -744,7 +759,7 @@ pio device monitor -b 9600
 
 #### Initialization Messages (on startup)
 
-```
+```text
 Setting up Arduino Green, Amber, Red LED Pins (3, 4, 5)...
 Setting up Arduino Push Button "Input Pullup" pin 2...
 Attaching ISR to Push Button pin, monitoring button status continuously!
@@ -755,7 +770,7 @@ Doing nothing .. :)..
 
 #### Normal Operation (repeating)
 
-```
+```text
 Green Traffic Light On!
 Doing nothing .. :)..
 Doing nothing .. :)..
@@ -765,7 +780,7 @@ Doing nothing .. :)..
 
 #### Button Press & Sequence
 
-```
+```text
 Button Pressed! Waiting for 3 seconds before running stop sequence...
 [3000ms delay - no output]
 Button pressed! ISR Flag toggled to True!
@@ -786,7 +801,7 @@ Doing nothing .. :)..
 
 ### Log Analysis
 
-```
+```text
 [TIMESTAMP]  | [MESSAGE]                    | [MEANING]
 ─────────────┼──────────────────────────────┼──────────────────────────
 Startup      | "Setting up Arduino..."      | Hardware initialization
@@ -809,7 +824,7 @@ End          | "Total time: X seconds"      | Sequence duration
 
 ---
 
-## 🔌 Interrupt Handling
+## Interrupt Handling
 
 ### Interrupt Configuration
 
@@ -824,7 +839,7 @@ attachInterrupt(digitalPinToInterrupt(push_button), stopTraffic, FALLING);
 ### Interrupt Types Explained
 
 | Trigger | Edge | When Fires | Use Case |
-|---------|------|-----------|----------|
+| --- | --- | --- | --- |
 | LOW | None | Continuously while pin is LOW | Not recommended |
 | CHANGE | Both | Rising AND falling edge | Switch detect |
 | RISING | Up | When pin goes HIGH | Release detection |
@@ -832,7 +847,7 @@ attachInterrupt(digitalPinToInterrupt(push_button), stopTraffic, FALLING);
 
 ### Why FALLING Edge for Button?
 
-```
+```text
 Pin D2 State Timeline (with INPUT_PULLUP):
 
 Released State:
@@ -897,13 +912,14 @@ Button Physically Pressed:
 ```
 
 **Natural Debounce**:
+
 - Edge triggering (FALLING only) ignores bounces naturally
 - Multiple ISR fires to same true flag have no extra effect
 - Works reliably on breadboards despite noise
 
 ---
 
-## 💡 Examples
+## Examples
 
 ### Example 1: Basic Usage
 
@@ -1031,11 +1047,11 @@ elf = "../.pio/build/uno/firmware.elf"
 
 ---
 
-## 📊 Performance
+## Performance
 
 ### Code Size
 
-```
+```text
 Compilation Output:
 RAM:   [======    ] 35.9% (used 735 bytes from 2048 bytes)
 Flash: [===       ] 20.8% (used 6748 bytes from 32256 bytes)
@@ -1052,7 +1068,7 @@ Total RAM Used: ~36%
 ### Execution Speed
 
 | Operation | Time |
-|-----------|------|
+| --- | --- |
 | digitalWrite() | ~5 µs |
 | analogRead() | ~100 µs |
 | delay(1) | ~1 ms (plus overhead) |
@@ -1062,7 +1078,7 @@ Total RAM Used: ~36%
 ### Power Consumption
 
 | Component | Current | Active When |
-|-----------|---------|------------|
+| --- | --- | --- |
 | Arduino UNO | ~50 mA | Always |
 | Green LED (on) | ~13 mA | Normal state |
 | Amber LED (on) | ~13 mA | During flashing |
@@ -1074,7 +1090,7 @@ Total RAM Used: ~36%
 ### Resource Usage
 
 | Resource | Used | Available | Utilization |
-|----------|------|-----------|------------|
+| --- | --- | --- | --- |
 | Flash (Program Memory) | 6.7 KB | 32 KB | 20.8% |
 | RAM (Working Memory) | 735 bytes | 2 KB | 35.9% |
 | EEPROM | 0 bytes | 1 KB | 0% |
@@ -1084,12 +1100,12 @@ Total RAM Used: ~36%
 
 ---
 
-## 🔗 Compatibility
+## Compatibility
 
 ### Arduino Board Support
 
 | Board | Status | Notes |
-|-------|--------|-------|
+| --- | --- | --- |
 | Arduino UNO R3 | ✅ Tested | Primary target, fully supported |
 | Arduino Nano | ✅ Compatible | Same ATmega328P, same pinout |
 | Arduino Pro Mini | ✅ Compatible | Same microcontroller |
@@ -1128,12 +1144,12 @@ Status: ✅ Fully tested in Wokwi simulator
 
 ---
 
-## 🔍 Error Codes & Troubleshooting
+## Error Codes & Troubleshooting
 
 ### Compile Errors
 
 | Error | Cause | Fix |
-|-------|-------|-----|
+| --- | --- | --- |
 | `undefined reference to 'setup'` | Missing setup() function | Ensure setup() is defined |
 | `error: 'grn_led' was not declared` | Missing #define | Add `#define grn_led 4` at top |
 | `ISO C++ forbids declaration with no type` | Syntax error | Check #define syntax |
@@ -1141,7 +1157,7 @@ Status: ✅ Fully tested in Wokwi simulator
 ### Runtime Issues
 
 | Symptom | Likely Cause | Diagnosis | Fix |
-|---------|------------|-----------|-----|
+| --- | --- | --- | --- |
 | LED doesn't light | Wrong pin or wrong state | Check digitalWrite value | Verify pin # and HIGH/LOW |
 | Button doesn't work | Not connected or wrong pin | Serial output shows "Waiting" | Check D2 connection |
 | Buzzer silent | ISR not firing or wrong frequency | Serial shows sequence runs | Check D6 connection, use tone() |
@@ -1150,7 +1166,7 @@ Status: ✅ Fully tested in Wokwi simulator
 
 ---
 
-## 📚 Related Documentation
+## Related Documentation
 
 - [README.md](../README.md) - Project overview and quick start
 - [HARDWARE.md](HARDWARE.md) - Pin configurations and wiring

@@ -9,4 +9,5 @@ test/
 .vscode/ipch
 Wokwi/*.vcd
 docs/GIT_WORKFLOW_NOTES.md
+docs/CONTRIBUTORS.md
 PLATFORMIO_ESSENTIALS.md
