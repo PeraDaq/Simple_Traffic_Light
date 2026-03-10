@@ -35,6 +35,213 @@ Add structured serial telemetry to the traffic light firmware so runtime behavio
 
 ## Design Overview
 
+## Implementation Overview
+
+Use this order to implement the feature with low risk and easy review.
+
+### Step 1: Create Branch and Baseline Build
+
+- Create branch: `feature/telemetry-teleplot-vaporview`
+- Run baseline build: `pio run`
+- Confirm current behavior is unchanged before edits.
+
+Commands:
+
+```bash
+git checkout -b feature/telemetry-teleplot-vaporview
+pio run
+```
+
+Why:
+
+- Starting from a clean feature branch keeps PR scope isolated.
+- A baseline build confirms the project compiles before telemetry edits.
+
+### Step 2: Add Telemetry Infrastructure in `src/main.cpp`
+
+- Add compile-time flags:
+  - `ENABLE_TELEMETRY`
+  - `ENABLE_DEBUG_LOGS`
+  - `TELEMETRY_HEARTBEAT_MS`
+- Add helper functions:
+  - `emitMetric(const char* name, long value)`
+  - `emitPinState(const char* name, uint8_t pin)`
+- Add state variables:
+  - `volatile bool buttonEdgePending`
+  - `unsigned long lastHeartbeatMs`
+
+Code changes (add near top of `src/main.cpp`):
+
+```cpp
+#define ENABLE_TELEMETRY 1
+#define ENABLE_DEBUG_LOGS 1
+#define TELEMETRY_HEARTBEAT_MS 250
+
+#if ENABLE_DEBUG_LOGS
+  #define DBG_PRINT(x) Serial.print(x)
+  #define DBG_PRINTLN(x) Serial.println(x)
+#else
+  #define DBG_PRINT(x) do {} while (0)
+  #define DBG_PRINTLN(x) do {} while (0)
+#endif
+
+volatile bool buttonEdgePending = false;
+unsigned long lastHeartbeatMs = 0;
+
+void emitMetric(const char* name, long value) {
+#if ENABLE_TELEMETRY
+  Serial.print(name);
+  Serial.print(':');
+  Serial.println(value);
+#else
+  (void)name;
+  (void)value;
+#endif
+}
+
+void emitPinState(const char* name, uint8_t pin) {
+  emitMetric(name, digitalRead(pin));
+}
+```
+
+Why:
+
+- Feature flags allow easy enable/disable without deleting code.
+- Dedicated emit helpers keep telemetry formatting consistent (`name:value`).
+
+### Step 3: Apply ISR-Safe Event Capture
+
+- Keep ISR (`stopTraffic`) flag-only.
+- Set `stopRequested = true` and `buttonEdgePending = true` in ISR.
+- Do not call `Serial.print*` from ISR.
+
+Code changes (replace `stopTraffic()`):
+
+```cpp
+void stopTraffic() {
+  if (!stopSequenceRunning) {
+    stopRequested = true;
+    buttonEdgePending = true;
+  }
+}
+```
+
+Why:
+
+- ISR must be fast and deterministic.
+- Printing in ISR can cause latency and timing side effects.
+
+### Step 4: Emit Telemetry at State Boundaries
+
+- In `setup()`: emit baseline metrics once.
+- In `loop()`: emit normal state metrics and throttled `wait_ms` heartbeat.
+- Before transition delay: emit `state=1`.
+- In `runStopSequence()`: emit `state`, `phase`, output toggles, and `seq_total_ms`.
+
+Code changes (representative snippets):
+
+```cpp
+// setup(): baseline snapshot
+emitMetric("state", 0);
+emitMetric("stop_requested", 0);
+emitMetric("stop_running", 0);
+emitPinState("led_green", grn_led);
+emitPinState("led_amber", amb_led);
+emitPinState("led_red", red_led);
+emitPinState("led_builtin", LED_BUILTIN);
+emitPinState("buzzer_on", buzzer);
+```
+
+```cpp
+// loop(): while waiting for button
+while (!stopRequested) {
+  unsigned long now = millis();
+  if (buttonEdgePending) {
+    emitMetric("btn_edge", 1);
+    buttonEdgePending = false;
+  }
+  if (now - lastHeartbeatMs >= TELEMETRY_HEARTBEAT_MS) {
+    emitMetric("wait_ms", now);
+    lastHeartbeatMs = now;
+  }
+}
+
+emitMetric("state", 1); // transition delay
+delay(3000);
+stopRequested = false;
+emitMetric("stop_requested", 0);
+```
+
+```cpp
+// runStopSequence(): phase transitions
+stopSequenceRunning = true;
+startTime = millis();
+emitMetric("state", 2);
+emitMetric("stop_running", 1);
+emitMetric("phase", 10);
+
+// ... phase 20/30/40/50 emitted at boundaries ...
+
+stopTime = millis();
+emitMetric("seq_total_ms", stopTime - startTime);
+emitMetric("phase", 60);
+emitMetric("stop_running", 0);
+emitMetric("state", 0);
+stopSequenceRunning = false;
+```
+
+Why:
+
+- Transition-point emission gives useful plots without flooding serial output.
+- Heartbeat throttling keeps timings stable.
+
+### Step 5: Update Documentation
+
+- `README.md`: add Teleplot/VaporView setup and signal dictionary.
+- `docs/API.md`: add telemetry signal definitions, phase map, and ISR safety note.
+
+Commands:
+
+```bash
+code README.md docs/API.md
+```
+
+Additions to include:
+
+- Signal table (`state`, `phase`, `stop_requested`, `stop_running`, LED states, `seq_total_ms`).
+- Serial format note: one metric per line, `name:value`, baud `9600`.
+- Safety note: ISR only sets flags; telemetry emission runs in `loop()`/sequence functions.
+
+### Step 6: Validate and Prepare PR
+
+- Build check: `pio run`.
+- Runtime check: verify state and phase transitions in serial output.
+- Confirm no functional behavior change in traffic sequence timing.
+- Commit in small logical chunks, push branch, then open PR.
+
+Commands:
+
+```bash
+pio run
+pio device monitor -b 9600
+
+git add src/main.cpp
+git commit -m "feat: add telemetry helpers and feature flags"
+
+git add src/main.cpp
+git commit -m "feat: emit runtime telemetry across state machine"
+
+git add README.md docs/API.md
+git commit -m "docs: add Teleplot and VaporView telemetry guide"
+
+git push -u origin feature/telemetry-teleplot-vaporview
+```
+
+Why:
+
+- Small commits make review and rollback easier.
+- Pushing the feature branch is the trigger point to open the PR on GitHub.
+
 ### 1. Compile-Time Flags
 
 Add flags near top of `src/main.cpp`:
